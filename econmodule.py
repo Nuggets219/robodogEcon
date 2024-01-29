@@ -1,5 +1,5 @@
 import io
-econArchive = open("econarchive.txt", "r", encoding="utf-8")
+econArchive = open("econarchive.txt", "r", encoding="utf-8") #opening in read mode so its harder to accidentally erase the whole chat's history.
 users = {}
 for i in econArchive:
     if len(i) > 0:
@@ -28,8 +28,9 @@ def saveAndQuit():
     for name in users:
         econArchive.writelines(f'{name}?{users[name]}\n')
     econArchive.close()
+    
 while True:
-    exec(input())
+    exec(input()) #Here for testing purposes
 
 """
 broadcaster?10032
