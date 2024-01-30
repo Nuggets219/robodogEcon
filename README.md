@@ -1,3 +1,5 @@
 # robodogEcon
 An economy module for the Robodog Chatbot
-very incomplete as of now!
+for installation, go to the econadditions.txt file
+make sure you have robodog installed
+https://github.com/Nuggets219/robodogchatbot
