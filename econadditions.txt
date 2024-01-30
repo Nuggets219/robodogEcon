@@ -1,0 +1,61 @@
+add to config:
+
+"""
+EconModule config defaults & explanations:
+startingPointAmount = 500
+--dictates the amount a user will get as a starting amount when they register
+pointTimerAmount = 200
+--the amount a user will get every couple mins, depending on pointCountdownTime
+pointCountdownTime = 5
+--the amount of time, in minutes, it takes for every active user to recieve the amount of points specified in pointTimerAmount
+"""
+
+startingPointAmount = 500
+pointTimerAmount = 200
+pointCountdownTime = 5
+
+
+add to program (top of it):
+
+from econmodule import *
+
+add to commandslist:
+
+    elif f"{cprefix}register" in msg:
+        if register(userName) is True:
+            print(f"registered {userName}")
+            printToChat(f"Successfully registered{userName}!")
+        else:
+            print(f"failed to register {userName}.")
+    elif f"{cprefix}addtoPoints" in msg and userName in superTrusted:
+        changePoints(msg.split()[1], msg.split()[2])
+        print(user, sayPoints(userName))
+    elif f"{cprefix}addtoPoints" in msg and userName not in superTrusted:
+        print(f"{userName} is not a supermod!")
+        printToChat(f"{user} is not a supermod!")
+    elif f"{cprefix}transfer" in msg and userName in superTrusted:
+        transferBal(msg.split()[1], msg.split()[2])
+    elif f"{cprefix}transfer" in msg and userName not in superTrusted:
+        print(f"{userName} is not a supermod!")
+        printToChat(f"{userName} is not a supermod!")
+    elif f"{cprefix}setPoints" in msg and userName in superTrusted:
+        setPoints(msg.split()[1], msg.split()[2])
+    elif f"{cprefix}setPoints" in msg and userName not in superTrusted:
+        print(f"{userName} is not a supermod!")
+        printToChat(f"{userName} is not a supermod!")
+    elif f"{cprefix}bal" == msg:
+        if sayPoints(userName) is False:
+            printToChat(f"Error! User may not be registered, or has not taken attendance! Use {cprefix}register to register, and {cprefix}attendance to mark yourself as here!")
+    elif f"{cprefix}attendance" == msg:
+        res = attendance(userName)
+        if res is True:
+            printToChat(f"{user} is here!")
+        else:
+            printToChat(f"{user} has already completed attendance, or is not here!")
+
+
+add at the BOTTOM OF COMMANDS LIST (out of if loop)
+checkPointCountdown()
+
+add to commandsList:
+{cprefix}register, {cprefix}attendance, {cprefix}bal, {cprefix}gift
